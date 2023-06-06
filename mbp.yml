@@ -1,0 +1,57 @@
+- hosts: all
+  tasks:
+    - name: Tap brew repos
+      community.general.homebrew_tap:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - babashka/brew
+        - borkdude/brew
+        - clojure-lsp/brew
+        - clojure/tools
+        - graalvm/tap
+      tags: brew
+    - name: Install the lastest versions of listed packages with brew
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - ansible
+        - asciidoctor
+        - awscli
+        - neil
+        - clj-kondo
+        - clojure-lsp-native
+        - clojure
+        - git
+        - gnupg
+        - ispell
+        - leiningen
+        - markdown
+        - mysql-client
+        - node
+        - python
+        - rlwrap
+        - rust
+        - telnet
+        - terraform
+      tags: brew
+    - name: Install the lastest versions of listed packages as brew casks
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - balenaetcher
+        - emacs
+        - fanny
+        - firefox
+        - google-chrome
+        - google-cloud-sdk
+        - graalvm-ce-lts-java11
+        - mactex
+        - miniconda
+        - temurin
+        - temurin11
+        - vlc
+      tags: brew
+
